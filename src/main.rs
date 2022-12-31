@@ -23,14 +23,14 @@ fn main() {
         .run();
 }
 
-fn setup(commands: Commands) {
-    setup_camera_2d(commands);
+fn setup(mut commands: Commands) {
+    setup_camera_2d(&mut commands);
     spawn_paddle(&mut commands, PaddleLocation::Left);
     spawn_paddle(&mut commands, PaddleLocation::Right);
 }
 
 // Camera
-fn setup_camera_2d(mut commands: Commands) {
+fn setup_camera_2d(commands: &mut Commands) {
     commands.spawn(Camera2dBundle {
         camera_2d: Camera2d {
             clear_color: ClearColorConfig::Custom(Color::rgb(0.4, 0.4, 0.4)),
