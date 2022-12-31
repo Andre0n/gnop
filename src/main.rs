@@ -1,8 +1,8 @@
 mod paddle;
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
-use paddle::{spawn_paddle, PaddleLocation};
 use bevy::time::FixedTimestep;
+use paddle::spawn_paddles;
 
 // Window defaults
 const WINDOW_WIDTH: f32 = 854.;
@@ -10,6 +10,7 @@ const WINDOW_HEIGHT: f32 = 480.;
 
 // Defines the amount of time that should elapse between each physics step. (FPS)
 const TIME_STEP: f32 = 1.0 / 60.0;
+
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
@@ -29,8 +30,7 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     setup_camera_2d(&mut commands);
-    spawn_paddle(&mut commands, PaddleLocation::Left);
-    spawn_paddle(&mut commands, PaddleLocation::Right);
+    spawn_paddles(&mut commands);
 }
 
 // Camera

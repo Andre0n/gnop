@@ -23,9 +23,12 @@ impl PaddleLocation {
             PaddleLocation::Right => Vec2::new(X_PADDLE_POS, 0.0),
         }
     }
+pub fn spawn_paddles(commands: &mut Commands) {
+    spawn_paddle(commands, PaddleLocation::Left);
+    spawn_paddle(commands, PaddleLocation::Right);
 }
 
-pub fn spawn_paddle(commands: &mut Commands, location: PaddleLocation) {
+fn spawn_paddle(commands: &mut Commands, location: PaddleLocation) {
     commands.spawn((
         SpriteBundle {
             transform: Transform {
@@ -42,3 +45,4 @@ pub fn spawn_paddle(commands: &mut Commands, location: PaddleLocation) {
         Paddle,
     ));
 }
+
