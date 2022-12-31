@@ -1,5 +1,7 @@
+mod paddle;
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
+use paddle::{spawn_paddle, PaddleLocation};
 
 // Window defaults
 const WINDOW_WIDTH: f32 = 854.;
@@ -23,6 +25,8 @@ fn main() {
 
 fn setup(commands: Commands) {
     setup_camera_2d(commands);
+    spawn_paddle(&mut commands, PaddleLocation::Left);
+    spawn_paddle(&mut commands, PaddleLocation::Right);
 }
 
 // Camera
