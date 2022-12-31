@@ -2,7 +2,7 @@ mod paddle;
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
 use bevy::time::FixedTimestep;
-use paddle::spawn_paddles;
+use paddle::{paddle_movement_system, spawn_paddles};
 
 // Window defaults
 const WINDOW_WIDTH: f32 = 854.;
@@ -24,7 +24,11 @@ fn main() {
             ..default()
         }))
         .add_startup_system(setup)
-        .add_system_set(SystemSet::new().with_run_criteria(FixedTimestep::step(TIME_STEP as f64)))
+        .add_system_set(
+            SystemSet::new()
+                .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))
+                .with_system(paddle_movement_system)
+        )
         .run();
 }
 
