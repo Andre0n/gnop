@@ -1,3 +1,4 @@
+use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
 
 // Window defaults
@@ -16,5 +17,20 @@ fn main() {
             },
             ..default()
         }))
+        .add_startup_system(setup)
         .run();
+}
+
+fn setup(commands: Commands) {
+    setup_camera_2d(commands);
+}
+
+// Camera
+fn setup_camera_2d(mut commands: Commands) {
+    commands.spawn(Camera2dBundle {
+        camera_2d: Camera2d {
+            clear_color: ClearColorConfig::Custom(Color::rgb(0.4, 0.4, 0.4)),
+        },
+        ..default()
+    });
 }
