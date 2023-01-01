@@ -1,5 +1,6 @@
 mod ball;
 mod paddle;
+mod wall;
 use ball::{apply_ball_velocity, spawn_ball, Ball, Velocity};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::time::FixedTimestep;
@@ -8,6 +9,7 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
 };
 use paddle::{paddle_movement_system, spawn_paddles};
+use wall::{spawn_walls, WallLocation};
 
 // Window defaults
 const WINDOW_WIDTH: f32 = 854.;
@@ -50,6 +52,7 @@ fn setup(mut commands: Commands) {
     setup_camera_2d(&mut commands);
     spawn_paddles(&mut commands);
     spawn_ball(&mut commands);
+    spawn_walls(&mut commands);
 }
 
 // Camera
