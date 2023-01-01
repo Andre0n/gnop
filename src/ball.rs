@@ -7,7 +7,7 @@ const BALL_SIZE: Vec3 = Vec3::new(20., 20.0, 0.0);
 const BALL_COLOR: Color = Color::rgb(1., 1., 1.);
 
 #[derive(Component)]
-struct Ball;
+pub struct Ball;
 
 #[derive(Component, Deref, DerefMut)]
 pub struct Velocity(Vec2);
