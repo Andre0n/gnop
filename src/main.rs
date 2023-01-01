@@ -1,4 +1,6 @@
+mod ball;
 mod paddle;
+use ball::{apply_ball_velocity, spawn_ball};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
 use bevy::time::FixedTimestep;
@@ -28,6 +30,7 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))
                 .with_system(paddle_movement_system)
+                .with_system(apply_ball_velocity),
         )
         .run();
 }
@@ -35,6 +38,7 @@ fn main() {
 fn setup(mut commands: Commands) {
     setup_camera_2d(&mut commands);
     spawn_paddles(&mut commands);
+    spawn_ball(&mut commands);
 }
 
 // Camera
