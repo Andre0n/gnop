@@ -4,6 +4,10 @@ use ball::{apply_ball_velocity, spawn_ball};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::prelude::*;
 use bevy::time::FixedTimestep;
+use bevy::{
+    prelude::*,
+    sprite::collide_aabb::{collide, Collision},
+};
 use paddle::{paddle_movement_system, spawn_paddles};
 
 // Window defaults
@@ -12,6 +16,12 @@ const WINDOW_HEIGHT: f32 = 480.;
 
 // Defines the amount of time that should elapse between each physics step. (FPS)
 const TIME_STEP: f32 = 1.0 / 60.0;
+
+#[derive(Component)]
+struct Collider;
+
+#[derive(Default)]
+struct CollisionEvent;
 
 fn main() {
     App::new()
@@ -26,6 +36,7 @@ fn main() {
             ..default()
         }))
         .add_startup_system(setup)
+        .add_event::<CollisionEvent>()
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))

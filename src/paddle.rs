@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{TIME_STEP, WINDOW_HEIGHT, WINDOW_WIDTH};
+use crate::{TIME_STEP, WINDOW_HEIGHT, WINDOW_WIDTH, Collider};
 
 const PADDLE_SPEED: f32 = 500.;
 const PADDLE_WIDTH: f32 = 20.;
@@ -54,6 +54,7 @@ fn spawn_paddle(commands: &mut Commands, location: PaddleLocation) {
         },
         Paddle,
         location,
+        Collider,
     ));
 }
 
