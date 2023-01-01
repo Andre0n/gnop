@@ -67,13 +67,13 @@ fn setup_camera_2d(commands: &mut Commands) {
 
 fn check_collisions(
     mut ball_query: Query<(&mut Velocity, &Transform), With<Ball>>,
-    collider_query: Query<(Entity, &Transform), With<Collider>>,
+    collider_query: Query<(Entity, &Transform, Option<&WallLocation>), With<Collider>>,
     mut collision_events: EventWriter<CollisionEvent>,
 ) {
     let (mut ball_velocity, ball_transform) = ball_query.single_mut();
     let ball_size = ball_transform.scale.truncate();
 
-    for (_, transform) in &collider_query {
+    for (_, transform, wall) in &collider_query {
         let collision = collide(
             ball_transform.translation,
             ball_size,
@@ -83,6 +83,16 @@ fn check_collisions(
 
         if let Some(collision) = collision {
             collision_events.send_default();
+
+            if wall.is_some() {
+                match wall.unwrap() {
+                    WallLocation::Left => println!("Player 2 scored!"),
+                    WallLocation::Right => println!("Player 1 scored!"),
+                    WallLocation::Top => {}
+                    WallLocation::Bottom => {}
+                }
+            }
+
             // reflect the ball when it collides
             let mut reflect_x = false;
             let mut reflect_y = false;
