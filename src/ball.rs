@@ -14,7 +14,10 @@ pub struct Velocity(Vec2);
 
 pub fn spawn_ball(commands: &mut Commands) {
     // Generate a random direction
-    let ball_initial_direction = Vec2::new(rand::thread_rng().gen_range(-1.0..1.0), 0.0);
+    let ball_initial_direction = Vec2::new(
+        rand::thread_rng().gen_range(-1.0..1.0),
+        rand::thread_rng().gen_range(-0.2..0.2),
+    );
 
     commands.spawn((
         SpriteBundle {
