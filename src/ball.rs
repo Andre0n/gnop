@@ -2,7 +2,7 @@ use crate::TIME_STEP;
 use bevy::prelude::*;
 use rand::Rng;
 
-const BALL_SPEED: f32 = 250.;
+const BALL_SPEED: f32 = 350.;
 const BALL_SIZE: Vec3 = Vec3::new(20., 20.0, 0.0);
 const BALL_COLOR: Color = Color::rgb(1., 1., 1.);
 
