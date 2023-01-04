@@ -1,7 +1,7 @@
 mod ball;
 mod paddle;
 mod wall;
-use ball::{apply_ball_velocity, spawn_ball, Ball, Velocity};
+use ball::{apply_ball_velocity, reset_ball_to_center, spawn_ball, Ball, Velocity};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::time::FixedTimestep;
 use bevy::{
@@ -46,6 +46,7 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))
                 .with_system(check_collisions)
+                .with_system(reset_ball_to_center.before(check_collisions))
                 .with_system(paddle_movement_system.before(check_collisions))
                 .with_system(apply_ball_velocity.before(check_collisions)),
         )
