@@ -73,6 +73,7 @@ fn check_collisions(
     mut ball_query: Query<(&mut Velocity, &Transform), With<Ball>>,
     collider_query: Query<(Entity, &Transform, Option<&WallLocation>), With<Collider>>,
     mut collision_events: EventWriter<CollisionEvent>,
+    mut reset_ball_event: EventWriter<ResetBallEvent>,
 ) {
     let (mut ball_velocity, ball_transform) = ball_query.single_mut();
     let ball_size = ball_transform.scale.truncate();
@@ -90,8 +91,8 @@ fn check_collisions(
 
             if wall.is_some() {
                 match wall.unwrap() {
-                    WallLocation::Left => println!("Player 2 scored!"),
-                    WallLocation::Right => println!("Player 1 scored!"),
+                    WallLocation::Left => reset_ball_event.send_default(),
+                    WallLocation::Right => reset_ball_event.send_default(),
                     WallLocation::Top => {}
                     WallLocation::Bottom => {}
                 }
