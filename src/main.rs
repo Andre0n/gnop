@@ -57,7 +57,7 @@ fn main() {
         .run();
 }
 
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, mut asset_server: Res<AssetServer>) {
     setup_camera_2d(&mut commands);
     spawn_paddles(&mut commands);
     spawn_ball(&mut commands);
