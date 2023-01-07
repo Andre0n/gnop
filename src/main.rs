@@ -62,6 +62,7 @@ fn setup(mut commands: Commands, mut asset_server: Res<AssetServer>) {
     spawn_paddles(&mut commands);
     spawn_ball(&mut commands);
     spawn_walls(&mut commands);
+    spawn_score_board(&mut commands, &mut asset_server);
 }
 
 // Camera
