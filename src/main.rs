@@ -53,6 +53,7 @@ fn main() {
                 .with_system(paddle_movement_system.before(check_collisions))
                 .with_system(apply_ball_velocity.before(check_collisions)),
         )
+        .add_system(update_scoreboard)
         .run();
 }
 
