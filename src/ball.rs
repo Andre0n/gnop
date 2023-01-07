@@ -57,14 +57,20 @@ pub fn apply_ball_velocity(mut query: Query<(&mut Transform, &Velocity)>) {
 }
 
 pub fn reset_ball_to_center(
-    mut query: Query<(&mut Transform, &mut Velocity), With<Ball>>,
-    reset_ball_event: EventReader<ResetBallEvent>,
+    mut commands: Commands,
+    mut query: Query<Entity, With<Ball>>,
+    reset_event: EventReader<ResetBallEvent>,
 ) {
-    if reset_ball_event.is_empty() {
+    if reset_event.is_empty() {
         return;
     }
-    let (mut ball_transform, mut ball_velocity) = query.single_mut();
-    ball_transform.translation = Vec3::new(0., 0., 0.);
-    ball_velocity.x += rand::thread_rng().gen_range(-1.0..1.0);
-    ball_velocity.y += rand::thread_rng().gen_range(-1.0..1.0);
+
+    let ball_entity = query.single_mut();
+    commands.entity(ball_entity).despawn();
+    commands
+        .spawn(Ball::get_bundle())
+        .insert(Ball)
+        .insert(Velocity(
+            Ball::get_initial_direction().normalize() * BALL_SPEED,
+        ));
 }
