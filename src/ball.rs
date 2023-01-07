@@ -9,18 +9,17 @@ const BALL_COLOR: Color = Color::rgb(1., 1., 1.);
 #[derive(Component)]
 pub struct Ball;
 
-#[derive(Component, Deref, DerefMut)]
-pub struct Velocity(Vec2);
-
-pub fn spawn_ball(commands: &mut Commands) {
-    // Generate a random direction
-    let ball_initial_direction = Vec2::new(
-        rand::thread_rng().gen_range(-1.0..1.0),
-        rand::thread_rng().gen_range(-0.2..0.2),
-    );
-
-    commands.spawn((
-        SpriteBundle {
+impl Ball {
+    fn get_initial_direction() -> Vec2 {
+        // Generate a random direction
+        let initial_direction = Vec2::new(
+            rand::thread_rng().gen_range(-1.0..1.0),
+            rand::thread_rng().gen_range(-1.0..1.0),
+        );
+        return initial_direction;
+    }
+    fn get_bundle() -> SpriteBundle {
+        return SpriteBundle {
             transform: Transform {
                 translation: Vec3::new(0., 0., 0.),
                 scale: BALL_SIZE,
@@ -31,10 +30,20 @@ pub fn spawn_ball(commands: &mut Commands) {
                 ..default()
             },
             ..default()
-        },
-        Ball,
-        Velocity(ball_initial_direction.normalize() * BALL_SPEED),
-    ));
+        };
+    }
+}
+
+#[derive(Component, Deref, DerefMut)]
+pub struct Velocity(Vec2);
+
+pub fn spawn_ball(commands: &mut Commands) {
+    commands
+        .spawn(Ball::get_bundle())
+        .insert(Ball)
+        .insert(Velocity(
+            Ball::get_initial_direction().normalize() * BALL_SPEED,
+        ));
 }
 
 pub fn apply_ball_velocity(mut query: Query<(&mut Transform, &Velocity)>) {
