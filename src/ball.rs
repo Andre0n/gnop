@@ -1,4 +1,4 @@
-use crate::{ResetBallEvent, TIME_STEP};
+use crate::TIME_STEP;
 use bevy::prelude::*;
 use rand::Rng;
 
@@ -36,6 +36,9 @@ impl Ball {
 
 #[derive(Component, Deref, DerefMut)]
 pub struct Velocity(Vec2);
+
+#[derive(Default)]
+pub struct ResetBallEvent;
 
 pub fn spawn_ball(commands: &mut Commands) {
     commands

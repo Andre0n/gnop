@@ -2,7 +2,7 @@ mod ball;
 mod paddle;
 mod scoreboard;
 mod wall;
-use ball::{apply_ball_velocity, reset_ball_to_center, spawn_ball, Ball, Velocity};
+use ball::{apply_ball_velocity, reset_ball_to_center, spawn_ball, Ball, ResetBallEvent, Velocity};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::time::FixedTimestep;
 use bevy::{
@@ -25,9 +25,6 @@ struct Collider;
 
 #[derive(Default)]
 struct CollisionEvent;
-
-#[derive(Default)]
-pub struct ResetBallEvent;
 
 fn main() {
     App::new()
