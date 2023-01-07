@@ -21,6 +21,12 @@ impl Scoreboard {
             score_player_two: 0,
         };
     }
+    pub fn increase_player_one_score(&mut self) {
+        self.score_player_one += 1;
+    }
+    pub fn increase_player_two_score(&mut self) {
+        self.score_player_two += 1;
+    }
 }
 
 pub fn spawn_score_board(commands: &mut Commands, asset_server: &mut Res<AssetServer>) {
