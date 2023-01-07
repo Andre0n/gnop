@@ -46,7 +46,7 @@ fn main() {
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))
                 .with_system(check_collisions)
-                .with_system(reset_ball_to_center.before(check_collisions))
+                .with_system(reset_ball_to_center.after(check_collisions))
                 .with_system(paddle_movement_system.before(check_collisions))
                 .with_system(apply_ball_velocity.before(check_collisions)),
         )
