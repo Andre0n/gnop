@@ -77,9 +77,10 @@ fn setup_camera_2d(commands: &mut Commands) {
 
 fn check_collisions(
     mut ball_query: Query<(&mut Velocity, &Transform), With<Ball>>,
-    collider_query: Query<(Entity, &Transform, Option<&WallLocation>), With<Collider>>,
     mut collision_events: EventWriter<CollisionEvent>,
     mut reset_ball_event: EventWriter<ResetBallEvent>,
+    mut scoreboard: ResMut<Scoreboard>,
+    collider_query: Query<(Entity, &Transform, Option<&WallLocation>), With<Collider>>,
 ) {
     let (mut ball_velocity, ball_transform) = ball_query.single_mut();
     let ball_size = ball_transform.scale.truncate();
@@ -97,10 +98,16 @@ fn check_collisions(
 
             if wall.is_some() {
                 match wall.unwrap() {
-                    WallLocation::Left => reset_ball_event.send_default(),
-                    WallLocation::Right => reset_ball_event.send_default(),
-                    WallLocation::Top => {}
-                    WallLocation::Bottom => {}
+                    WallLocation::Left => {
+                        reset_ball_event.send_default();
+                        scoreboard.increase_player_two_score();
+                    }
+                    WallLocation::Right => {
+                        reset_ball_event.send_default();
+                        scoreboard.increase_player_one_score();
+                    }
+                    WallLocation::Top => { /* do nothing */ }
+                    WallLocation::Bottom => { /* do nothing */ }
                 }
             }
 
