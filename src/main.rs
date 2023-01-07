@@ -96,12 +96,12 @@ fn check_collisions(
             if wall.is_some() {
                 match wall.unwrap() {
                     WallLocation::Left => {
-                        reset_ball_event.send_default();
                         scoreboard.increase_player_two_score();
+                        reset_ball_event.send_default();
                     }
                     WallLocation::Right => {
-                        reset_ball_event.send_default();
                         scoreboard.increase_player_one_score();
+                        reset_ball_event.send_default();
                     }
                     WallLocation::Top => { /* do nothing */ }
                     WallLocation::Bottom => { /* do nothing */ }
