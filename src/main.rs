@@ -1,5 +1,6 @@
 mod ball;
 mod paddle;
+mod scoreboard;
 mod wall;
 use ball::{apply_ball_velocity, reset_ball_to_center, spawn_ball, Ball, Velocity};
 use bevy::core_pipeline::clear_color::ClearColorConfig;
@@ -9,6 +10,7 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
 };
 use paddle::{paddle_movement_system, spawn_paddles};
+use scoreboard::{spawn_score_board, update_scoreboard, Scoreboard};
 use wall::{spawn_walls, WallLocation};
 
 // Window defaults
@@ -39,6 +41,7 @@ fn main() {
             },
             ..default()
         }))
+        .insert_resource(Scoreboard::new())
         .add_startup_system(setup)
         .add_event::<CollisionEvent>()
         .add_event::<ResetBallEvent>()
