@@ -27,7 +27,7 @@ struct Collider;
 struct CollisionEvent;
 
 #[derive(Default)]
-struct ResetGameEvent;
+pub struct ResetGameEvent;
 
 fn main() {
     App::new()
