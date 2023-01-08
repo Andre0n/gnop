@@ -80,6 +80,7 @@ fn check_collisions(
     mut ball_query: Query<(&mut Velocity, &Transform), With<Ball>>,
     mut collision_events: EventWriter<CollisionEvent>,
     mut reset_ball_event: EventWriter<ResetBallEvent>,
+    mut reset_game_event: EventWriter<ResetGameEvent>,
     mut scoreboard: ResMut<Scoreboard>,
     collider_query: Query<(Entity, &Transform, Option<&WallLocation>), With<Collider>>,
 ) {
@@ -93,6 +94,10 @@ fn check_collisions(
             transform.translation,
             transform.scale.truncate(),
         );
+
+        if scoreboard.has_winner() {
+            reset_game_event.send_default();
+        }
 
         if let Some(collision) = collision {
             collision_events.send_default();
