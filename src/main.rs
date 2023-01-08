@@ -26,6 +26,9 @@ struct Collider;
 #[derive(Default)]
 struct CollisionEvent;
 
+#[derive(Default)]
+struct ResetGameEvent;
+
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
@@ -42,6 +45,7 @@ fn main() {
         .add_startup_system(setup)
         .add_event::<CollisionEvent>()
         .add_event::<ResetBallEvent>()
+        .add_event::<ResetGameEvent>()
         .add_system_set(
             SystemSet::new()
                 .with_run_criteria(FixedTimestep::step(TIME_STEP as f64))
