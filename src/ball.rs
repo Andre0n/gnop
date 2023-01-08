@@ -71,6 +71,6 @@ pub fn reset_ball_to_center(
         .spawn(Ball::get_bundle())
         .insert(Ball)
         .insert(Velocity(
-            Ball::get_initial_direction().normalize() * BALL_SPEED,
+            Ball::get_random_initial_direction().normalize() * BALL_SPEED,
         ));
 }
