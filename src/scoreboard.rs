@@ -2,7 +2,7 @@
 
 use bevy::prelude::*;
 
-use crate::WINDOW_WIDTH;
+use crate::{ResetGameEvent, WINDOW_WIDTH};
 
 const SCOREBOARD_FONT_SIZE: f32 = 120.0;
 const SCOREBOARD_TEXT_PADDING: Val = Val::Px(WINDOW_WIDTH / 2.0 - 110.);
@@ -82,4 +82,14 @@ pub fn update_scoreboard(scoreboard: Res<Scoreboard>, mut query: Query<&mut Text
     text.sections[1].value = scoreboard.score_player_one.to_string();
     text.sections[2].value = " ".to_string();
     text.sections[3].value = scoreboard.score_player_two.to_string();
+}
+
+pub fn reset_scoreboard(
+    mut scoreboard: ResMut<Scoreboard>,
+    reset_event: EventReader<ResetGameEvent>,
+) {
+    if reset_event.is_empty() {
+        return;
+    }
+    scoreboard.reset();
 }
