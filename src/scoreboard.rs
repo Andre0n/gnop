@@ -27,6 +27,10 @@ impl Scoreboard {
     pub fn increase_player_two_score(&mut self) {
         self.score_player_two += 1;
     }
+
+    pub fn has_winner(&self) -> bool {
+        return self.score_player_one == 10 || self.score_player_two == 10;
+    }
 }
 
 pub fn spawn_score_board(commands: &mut Commands, asset_server: &mut Res<AssetServer>) {
