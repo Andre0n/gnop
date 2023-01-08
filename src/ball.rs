@@ -10,7 +10,7 @@ const BALL_COLOR: Color = Color::rgb(1., 1., 1.);
 pub struct Ball;
 
 impl Ball {
-    fn get_initial_direction() -> Vec2 {
+    fn get_random_initial_direction() -> Vec2 {
         // Generate a random direction
         let initial_direction = Vec2::new(
             rand::thread_rng().gen_range(-1.0..1.0),
@@ -45,7 +45,7 @@ pub fn spawn_ball(commands: &mut Commands) {
         .spawn(Ball::get_bundle())
         .insert(Ball)
         .insert(Velocity(
-            Ball::get_initial_direction().normalize() * BALL_SPEED,
+            Ball::get_random_initial_direction().normalize() * BALL_SPEED,
         ));
 }
 
