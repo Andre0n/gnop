@@ -10,7 +10,7 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
 };
 use paddle::{paddle_movement_system, spawn_paddles};
-use scoreboard::{spawn_score_board, update_scoreboard, Scoreboard};
+use scoreboard::{reset_scoreboard, spawn_score_board, update_scoreboard, Scoreboard};
 use wall::{spawn_walls, WallLocation};
 
 // Window defaults
@@ -55,6 +55,7 @@ fn main() {
                 .with_system(apply_ball_velocity.before(check_collisions)),
         )
         .add_system(update_scoreboard)
+        .add_system(reset_scoreboard.after(check_collisions))
         .run();
 }
 
@@ -97,6 +98,7 @@ fn check_collisions(
 
         if scoreboard.has_winner() {
             reset_game_event.send_default();
+            reset_ball_event.send_default();
         }
 
         if let Some(collision) = collision {
