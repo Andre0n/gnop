@@ -11,11 +11,14 @@ pub struct Ball;
 
 impl Ball {
     fn get_random_initial_direction() -> Vec2 {
-        // Generate a random direction
-        let initial_direction = Vec2::new(
-            rand::thread_rng().gen_range(-1.0..1.0),
-            rand::thread_rng().gen_range(-1.0..1.0),
+        let x_safe_dir = [-1.0, 1.0];
+        let y_safe_dir = [-1.0, 0.5, 1.0];
+
+        let initial_direction: Vec2 = Vec2::new(
+            x_safe_dir[rand::thread_rng().gen_range(0..2)],
+            y_safe_dir[rand::thread_rng().gen_range(0..3)],
         );
+        // Generate a random direction
         return initial_direction;
     }
     fn get_bundle() -> SpriteBundle {
