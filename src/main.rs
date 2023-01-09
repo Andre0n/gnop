@@ -3,6 +3,7 @@ mod paddle;
 mod scoreboard;
 mod wall;
 use ball::{apply_ball_velocity, reset_ball_to_center, spawn_ball, Ball, ResetBallEvent, Velocity};
+use bevy::app::AppExit;
 use bevy::core_pipeline::clear_color::ClearColorConfig;
 use bevy::time::FixedTimestep;
 use bevy::{
@@ -147,11 +148,15 @@ fn check_collisions(
 
 fn get_keyboard_events(
     keyboard_input: Res<Input<KeyCode>>,
+    mut exit: EventWriter<AppExit>,
     mut reset_ball_event: EventWriter<ResetBallEvent>,
     mut reset_game_event: EventWriter<ResetGameEvent>,
 ) {
     if keyboard_input.pressed(KeyCode::R) {
         reset_game_event.send_default();
         reset_ball_event.send_default();
+    }
+    if keyboard_input.pressed(KeyCode::Escape) {
+        exit.send(AppExit);
     }
 }
