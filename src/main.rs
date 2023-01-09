@@ -55,6 +55,7 @@ fn main() {
                 .with_system(apply_ball_velocity.before(check_collisions)),
         )
         .add_system(update_scoreboard)
+        .add_system(get_keyboard_events.after(check_collisions))
         .add_system(reset_scoreboard.after(check_collisions))
         .run();
 }
@@ -141,5 +142,16 @@ fn check_collisions(
                 ball_velocity.y = -ball_velocity.y;
             }
         }
+    }
+}
+
+fn get_keyboard_events(
+    keyboard_input: Res<Input<KeyCode>>,
+    mut reset_ball_event: EventWriter<ResetBallEvent>,
+    mut reset_game_event: EventWriter<ResetGameEvent>,
+) {
+    if keyboard_input.pressed(KeyCode::R) {
+        reset_game_event.send_default();
+        reset_ball_event.send_default();
     }
 }
